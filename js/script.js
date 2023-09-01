@@ -19,10 +19,15 @@ const HandleCategories = async (id) => {
     const data = await (res.json());
     // console.log(data.message);
     const ChannelContainer = document.getElementById('channel_card');
-    if (data.message === "no data found!!!")
-        DrawingFunction(ChannelContainer);
-    else
-        DisplayTubeCart(data.data, ChannelContainer);
+    const DrawContainer = document.getElementById('draw_container');
+    if (data.message === "no data found!!!") {
+        DrawContainer.textContent = '';
+        DrawingFunction(DrawContainer);
+    }
+    else {
+        DrawContainer.textContent = '';
+    }
+    DisplayTubeCart(data.data, ChannelContainer);
 }
 
 
@@ -36,6 +41,7 @@ const DisplayTubeCart = (channels, ChannelContainer) => {
     channels.forEach(channel => {
         // console.log(channel.category_id);
         const channelcard = document.createElement('div');
+        channelcard.classList = `card  bg-base-100  p-3`;
         channelcard.innerHTML = `
         <figure>
         <img class="w-[100%] h-36" src="${channel.thumbnail}" alt="Shoes" />
@@ -61,7 +67,15 @@ const DisplayTubeCart = (channels, ChannelContainer) => {
 
 // for drawing category
 const DrawingFunction = (channel_id) => {
-    channel_id.innerHTML = `
+
+
+    const DrawingContainer = document.createElement('div');
+    //DrawingContainer.classList = `container mx-auto `;
+    DrawingContainer.innerHTML = `
+    <img class="mx-auto mb-4"  src="Icon.png" alt="">
+    <p class="text-4xl font-bold">Oops!! Sorry, There is no <br> content here</p>
+   
     `
+    channel_id.appendChild(DrawingContainer);
 }
 LoadChannel();

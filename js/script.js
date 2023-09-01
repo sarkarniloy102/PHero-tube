@@ -9,12 +9,12 @@ const LoadChannel = async () => {
         // console.log(data);
         const category = document.createElement('button');
         category.innerHTML = `
-        <button onclick="HandleCategories(${data.category_id})" class="btn px-7 text-xl font-semibold">${data.category}</button>`;
+        <button onclick="HandleCategories(${data.category_id})" class="btn px-7  text-xl font-semibold">${data.category}</button>`;
         CategoryContainer.appendChild(category);
     });
 }
 
-const HandleCategories = async (id = 1000) => {
+const HandleCategories = async (id = '1000') => {
     const res = await fetch(` https://openapi.programming-hero.com/api/videos/category/${id}`);
     const data = await (res.json());
     // console.log(data.message);
@@ -51,7 +51,7 @@ const DisplayTubeCart = (channels, ChannelContainer) => {
         <figure class="relative">
         <img class="w-[100%] h-36" src="${channel.thumbnail}" alt="Shoes" />
         </figure>
-        <p class="absolute text-xs  bg-stone-700 rounded-md text-white px-3 top-[50%] left-[45%]">${timeinhours}  hrs ${' '}${timeinMin}${' '}min ago</p>
+        <p class="absolute text-xs  bg-stone-700 rounded-md text-white px-3 top-[50%] left-[47%]">${timeinhours}  hrs ${' '}${timeinMin}${' '}min ago</p>
         <div class="  flex gap-5 items-center p-5 pb-0">
         <div>
         <img class="w-10 h-10  rounded-full" src="${channel.authors[0].profile_picture}" alt="Shoes" />

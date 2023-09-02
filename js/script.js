@@ -56,10 +56,10 @@ const DisplayTubeCart = async (id) => {
 
         channelcard.innerHTML = `
         <figure class="relative">
-        <img class="w-[100%] h-36" src="${channel.thumbnail}" alt="Shoes" />
+        <img class=" w-[100%] h-44 " src="${channel.thumbnail}" alt="Shoes" />
         </figure>
-        <p>${postedDate === "" ? ""
-                : `<span class="absolute text-xs  bg-stone-700 rounded-md text-white px-3 top-[50%] left-[47%]"> ${timeinhours}  hrs ${" "}${timeinMin} ${" "}min ago </span>`
+        <p class="absolute top-[50%] right-3">${postedDate === "" ? ""
+                : `<span class=" text-xs  bg-stone-700 rounded-md text-white px-3 "> ${timeinhours}  hrs ${" "}${timeinMin} ${" "}min ago </span>`
             } </p >
         <div class="  flex gap-5 items-center p-5 pb-0">
         <div>
@@ -95,7 +95,8 @@ const DrawingFunction = (channel_id) => {
     const DrawingContainer = document.createElement('div');
 
     DrawingContainer.innerHTML = `
-        < img class= "mx-auto mb-4"  src = "Icon.png" alt = "" >
+    
+     <img class= "mx-auto mb-4" src="./images/Icon.png"">
         <p class="text-4xl font-bold">Oops!! Sorry, There is no <br> content here</p>
 `;
     channel_id.appendChild(DrawingContainer);
@@ -129,9 +130,11 @@ const SortViews = async () => {
 
         channelcard.innerHTML = `
         <figure class="relative">
-        <img class="w-[100%] h-36" src="${channel.thumbnail}" alt="Shoes" />
+        <img class="w-[100%] h-44" src="${channel.thumbnail}" alt="Shoes" />
         </figure>
-        <p class="absolute text-xs  bg-stone-700 rounded-md text-white px-3 top-[50%] left-[47%]">${timeinhours}  hrs ${' '}${timeinMin}${' '}min ago</p>
+        <p>${postedDate === "" ? ""
+                : `<span class="absolute text-xs  bg-stone-700 rounded-md text-white px-3 top-[50%] left-[47%]"> ${timeinhours}  hrs ${" "}${timeinMin} ${" "}min ago </span>`
+            } </p >
         <div class="  flex gap-5 items-center p-5 pb-0">
         <div>
         <img class="w-10 h-10  rounded-full" src="${channel.authors[0].profile_picture}" alt="Shoes" />

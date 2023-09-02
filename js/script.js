@@ -3,9 +3,8 @@ const LoadChannel = async () => {
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/categories`);
     const channeldata = await res.json();
     // console.log(channeldata.data[0].category_id);
-
     const CategoryContainer = document.getElementById('category_container');
-
+    // create heading button dynamically
     channeldata.data?.forEach(data => {
         // console.log(data);
         const category = document.createElement('button');
@@ -15,11 +14,13 @@ const LoadChannel = async () => {
 
     });
 }
+// Handle all category by category id
 const HandleCategories = async (id) => {
     const res = await fetch(` https://openapi.programming-hero.com/api/videos/category/${id}`);
     const data = await (res.json());
     // console.log(data.message);
     const DrawContainer = document.getElementById('draw_container');
+    // condition for
     if (data.message === "no data found!!!") {
         DrawContainer.textContent = '';
         DrawingFunction(DrawContainer);
@@ -66,8 +67,14 @@ const DisplayTubeCart = async (id) => {
        <p class="font-bold text-base">${channel.title}</p>
        </div>
        </div>
-       
+       <div class="flex gap-2 items-center">
        <p class="pl-20 text-sm">${channel.authors[0].profile_name}</p>
+       <p>${channel?.authors[0]?.verified
+                ? '<span class="verified-badge"><img width="16" height="16" src="https://img.icons8.com/color/96/verified-badge.png" alt="verified-badge"/></span>'
+                : ""
+            }</p>
+       </div>
+       
        <p class="pl-20 text-sm" >${channel.others.views} views</p>
        
          `;
@@ -95,7 +102,7 @@ const DrawingFunction = (channel_id) => {
     channel_id.appendChild(DrawingContainer);
 }
 // Sorted by views
-const SortViews = async (id) => {
+const SortViews = async () => {
     const res = await fetch(` https://openapi.programming-hero.com/api/videos/category/${global_id}`);
     const channeldata = await (res.json());
 
@@ -106,6 +113,7 @@ const SortViews = async (id) => {
         const bViews = parseFloat(b.others.views);
         return bViews - aViews;
     });
+
     // 
     const ChannelContainer = document.getElementById('channel_card');
     // console.log(channels);

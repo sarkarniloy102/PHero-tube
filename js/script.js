@@ -9,7 +9,7 @@ const LoadChannel = async () => {
         // console.log(data);
         const category = document.createElement('button');
         category.innerHTML = `
-        <button onclick="HandleCategories(${data.category_id})" class="btn px-7  text-xl font-semibold focus:bg-orange-500 focus:text-white">${data.category}</button>`;
+        <button onclick="HandleCategories(${data.category_id})" class="btn px-3 md:px-5 lg:px-7 text-base  md:text-lg lg:text-xl font-semibold focus:bg-orange-500 focus:text-white">${data.category}</button>`;
         CategoryContainer.appendChild(category);
 
     });

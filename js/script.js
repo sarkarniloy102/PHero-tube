@@ -9,7 +9,7 @@ const LoadChannel = async () => {
         // console.log(data);
         const category = document.createElement('button');
         category.innerHTML = `
-        <button onclick="HandleCategories(${data.category_id})" class="btn px-7  text-xl font-semibold">${data.category}</button>`;
+        <button onclick="HandleCategories(${data.category_id})" class="btn px-7  text-xl font-semibold focus:bg-orange-500 focus:text-white">${data.category}</button>`;
         CategoryContainer.appendChild(category);
 
     });
@@ -20,7 +20,7 @@ const HandleCategories = async (id) => {
     const data = await (res.json());
     // console.log(data.message);
     const DrawContainer = document.getElementById('draw_container');
-    // condition for
+    // condition for no data
     if (data.message === "no data found!!!") {
         DrawContainer.textContent = '';
         DrawingFunction(DrawContainer);
@@ -32,6 +32,7 @@ const HandleCategories = async (id) => {
 
 }
 let global_id;
+// Display each channel card dynamically 
 const DisplayTubeCart = async (id) => {
     global_id = id;
 
@@ -50,7 +51,6 @@ const DisplayTubeCart = async (id) => {
         const timeinhours = Math.floor(postedDate / 3600);
         const timeinMin = postedDate % 60;
         //console.log(postedDate, timeinhours, timeinMin);
-
         const channelcard = document.createElement('div');
         channelcard.classList = `card  bg-base-100  p-3`;
 
@@ -58,7 +58,9 @@ const DisplayTubeCart = async (id) => {
         <figure class="relative">
         <img class="w-[100%] h-36" src="${channel.thumbnail}" alt="Shoes" />
         </figure>
-        <p class="absolute text-xs  bg-stone-700 rounded-md text-white px-3 top-[50%] left-[47%]">${timeinhours}  hrs ${' '}${timeinMin}${' '}min ago</p>
+        <p>${postedDate === "" ? ""
+                : `<span class="absolute text-xs  bg-stone-700 rounded-md text-white px-3 top-[50%] left-[47%]"> ${timeinhours}  hrs ${" "}${timeinMin} ${" "}min ago </span>`
+            } </p >
         <div class="  flex gap-5 items-center p-5 pb-0">
         <div>
         <img class="w-10 h-10  rounded-full" src="${channel.authors[0].profile_picture}" alt="Shoes" />
@@ -76,8 +78,8 @@ const DisplayTubeCart = async (id) => {
        </div>
        
        <p class="pl-20 text-sm" >${channel.others.views} views</p>
-       
-         `;
+
+`;
 
         ChannelContainer.appendChild(channelcard);
 
@@ -90,15 +92,12 @@ DisplayTubeCart("1000");
 
 // for drawing category
 const DrawingFunction = (channel_id) => {
-
-
     const DrawingContainer = document.createElement('div');
-    //DrawingContainer.classList = `container mx-auto `;
+
     DrawingContainer.innerHTML = `
-    <img class="mx-auto mb-4"  src="Icon.png" alt="">
-    <p class="text-4xl font-bold">Oops!! Sorry, There is no <br> content here</p>
-   
-    `
+        < img class= "mx-auto mb-4"  src = "Icon.png" alt = "" >
+        <p class="text-4xl font-bold">Oops!! Sorry, There is no <br> content here</p>
+`;
     channel_id.appendChild(DrawingContainer);
 }
 // Sorted by views
@@ -107,20 +106,17 @@ const SortViews = async () => {
     const channeldata = await (res.json());
 
     const array = channeldata.data;
-
+    // sort the object in array according to views
     array.sort((a, b) => {
         const aViews = parseFloat(a.others.views);
         const bViews = parseFloat(b.others.views);
         return bViews - aViews;
     });
 
-    // 
+
     const ChannelContainer = document.getElementById('channel_card');
-    // console.log(channels);
     ChannelContainer.textContent = '';
-    // console.log(ChannelContainer);
-
-
+    // Display the channel card in sorted according to views
     array.forEach(channel => {
         // console.log(channel.category_id);
         const postedDate = channel.others?.posted_date;
@@ -154,10 +150,6 @@ const SortViews = async () => {
 
     });
 
-
-    // array.forEach(data =>
-    //     console.log(data)
-    // );
 }
 
 LoadChannel();
